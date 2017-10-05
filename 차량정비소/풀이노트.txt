@@ -1,0 +1,40 @@
+person
+{
+	int num
+	int tk
+	int recepNum
+	int pairNum
+}
+
+dest
+{
+	bool vacant
+	int remain_time
+	person client
+}
+
+reception[N]
+repair[N]
+	
+1. 처음 waiting queue에 넣기
+2. t가 1씩 증가 1100까지 체크
+
+t -> 0부터
+------------------------------------------------
+reception배열 순차탐색
+vacant != true, remain_time -= 1하고
+1) vacant != true, remain_time == 0이면 사람 빠지고 vacant, remain_time 초기화 빠진사람은 receptNum, pairNum 체크후
+repairWatingQ에 push, 처음 waiting queue에 사람이 있고 tk <= t라면 pop해서 넣기
+
+2) vacant == true인 곳이 있다면, waiting queue에 사람이 있고 tk <= t라면 pop해서 넣기 
+
+------------------------------------------------
+repair을 순차적으로 돌면서!!
+vacant != true, remain_time -= 1 하고,
+1) vacant != true, remain_time == 0 이면 사람 빠지고 vacant, remain_time 초기화 빠진사람은 receptNum, pairNum 체크
+그 다음 repairWatingQ에서 사람이 있다면 pop하고 vacant = false
+2) vacant == true인 곳이 있다면 repairWatingQ에서 사람이 있다면 pop해서 넣고 vacant = false
+
+t += 1
+
+if(reception and repair all vacant, repairWating, wating queue empty, return)
