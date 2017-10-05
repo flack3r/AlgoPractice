@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sw expert", "sw expert", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "차량정비소", "차량정비소\차량정비소.vcxproj", "{84A08D1C-C547-4B19-B8A6-4E2E5D63DB09}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "벌꿀채취", "벌꿀채취\벌꿀채취.vcxproj", "{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,11 +25,20 @@ Global
 		{84A08D1C-C547-4B19-B8A6-4E2E5D63DB09}.Release|x64.Build.0 = Release|x64
 		{84A08D1C-C547-4B19-B8A6-4E2E5D63DB09}.Release|x86.ActiveCfg = Release|Win32
 		{84A08D1C-C547-4B19-B8A6-4E2E5D63DB09}.Release|x86.Build.0 = Release|Win32
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}.Debug|x64.ActiveCfg = Debug|x64
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}.Debug|x64.Build.0 = Debug|x64
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}.Debug|x86.Build.0 = Debug|Win32
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}.Release|x64.ActiveCfg = Release|x64
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}.Release|x64.Build.0 = Release|x64
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}.Release|x86.ActiveCfg = Release|Win32
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{84A08D1C-C547-4B19-B8A6-4E2E5D63DB09} = {1D4B6C1D-25B3-4A0C-A590-AA9462FE712D}
+		{C5A8CA1C-678D-4DE9-94C8-0D38528FA4B9} = {1D4B6C1D-25B3-4A0C-A590-AA9462FE712D}
 	EndGlobalSection
 EndGlobal
