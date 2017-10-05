@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "탈주범검거", "탈주�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "등산로조성", "등산로조성\등산로조성.vcxproj", "{EE75FD77-1734-4C11-882C-67618BC7A2F6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "수영장", "수영장\수영장.vcxproj", "{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -83,6 +85,14 @@ Global
 		{EE75FD77-1734-4C11-882C-67618BC7A2F6}.Release|x64.Build.0 = Release|x64
 		{EE75FD77-1734-4C11-882C-67618BC7A2F6}.Release|x86.ActiveCfg = Release|Win32
 		{EE75FD77-1734-4C11-882C-67618BC7A2F6}.Release|x86.Build.0 = Release|Win32
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}.Debug|x64.ActiveCfg = Debug|x64
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}.Debug|x64.Build.0 = Debug|x64
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}.Debug|x86.ActiveCfg = Debug|Win32
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}.Debug|x86.Build.0 = Debug|Win32
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}.Release|x64.ActiveCfg = Release|x64
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}.Release|x64.Build.0 = Release|x64
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}.Release|x86.ActiveCfg = Release|Win32
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +105,6 @@ Global
 		{7C1D983C-AA15-4A4A-8053-05E8F15307FA} = {1D4B6C1D-25B3-4A0C-A590-AA9462FE712D}
 		{EB1BD18D-48EB-4F60-BF82-5348402B0A90} = {1D4B6C1D-25B3-4A0C-A590-AA9462FE712D}
 		{EE75FD77-1734-4C11-882C-67618BC7A2F6} = {1D4B6C1D-25B3-4A0C-A590-AA9462FE712D}
+		{E6E57F74-24A6-4949-8BCF-C0FEBFE2C16A} = {1D4B6C1D-25B3-4A0C-A590-AA9462FE712D}
 	EndGlobalSection
 EndGlobal
