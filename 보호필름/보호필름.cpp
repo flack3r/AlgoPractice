@@ -6,26 +6,51 @@
 #define INF 2e8
 using namespace std;
 int D, W, K;
-vector< vector<int> > arr;
+int CheckArr[21];
 bool Check();
-bool Promising();
+int Count[1 << 13];
 int solve(int row);
 int main()
 {
 	int T;
 	scanf("%d", &T);
+
+	//bit counting
+	for (int i = 0; i < (1 << 13); i++)
+	{
+		int z = i;
+		int maxS = 0;
+		int sum = 0;
+		while (z != 0)
+		{
+			if ((z & 1) == 1)
+			{
+				sum += 1;
+			}
+			else
+			{
+				maxS = max(maxS, sum);
+				sum = 0;
+			}
+			z /= 2;
+		}
+		maxS = max(maxS, sum);
+		Count[i] = maxS;
+	}
+
 	for (int t = 1; t <= T; t++)
 	{
 		int ans = 0;
+		memset(CheckArr, 0, sizeof(int) * 21);
 		scanf("%d %d %d", &D, &W, &K);
-		arr = vector< vector<int> >(D + 1, vector<int>(W + 1));
 		for (int i = 1; i <= D; i++)
 		{
 			for (int j = 1; j <= W; j++)
 			{
 				int tmp;
 				scanf("%d", &tmp);
-				arr[i][j] = tmp;
+				if(tmp != 0)
+					CheckArr[i] |= (1<<(W-j));
 			}
 		}
 		
@@ -53,59 +78,48 @@ int solve(int row)
 	ans = min(ans, solve(row + 1));
 
 	//case1 A로 바꾸는 경우
-	vector<int> original;
-	for (int c = 1; c <= W; c++)
-	{
-		original.push_back(arr[row][c]);
-		arr[row][c] = 0;
-	}
+	int origin = CheckArr[row];
+	CheckArr[row] = 0;
 	ans = min(ans, solve(row + 1) + 1);
-	for (int c = 1; c <= W; c++)
-		arr[row][c] = original[c - 1];
-	
+	CheckArr[row] = origin;
+
 	//case2 B로 바꾸는 경우
-	original.clear();
-	for (int c = 1; c <= W; c++)
-	{
-		original.push_back(arr[row][c]);
-		arr[row][c] = 1;
-	}
+	CheckArr[row] |= ((1 << W)-1);
 	ans = min(ans, solve(row + 1) + 1);
-	for (int c = 1; c <= W; c++)
-		arr[row][c] = original[c - 1];
+	CheckArr[row] = origin;
 	
 	return ans;
 }
 
 bool Check()
 {
-	for (int c = 1; c <= W; c++)
+	bool check = true;
+	bool checkA = true;
+	bool checkB = true;
+	for (int k = 1; k <= W; k++)
 	{
 		int tmp = 0;
-		int before = -1;
+		checkA = true;
+		checkB = true;
 		for (int r = 1; r <= D; r++)
 		{
-			if (before == -1)
-			{
-				before = arr[r][c];
-				tmp = 1;
-			}
-			else
-			{
-				if (arr[r][c] == before)
-					tmp += 1;
-				else
-				{
-					tmp = 1;
-					before = arr[r][c];
-				}
-			}
-
-			if (tmp >= K)
-				break;
+			int current = (CheckArr[r] >> (k - 1)) & 1;
+			tmp |= (current << (r-1));
 		}
-		if (tmp < K)
-			return false;
+		
+		if (Count[tmp] < K)
+			checkA = false;
+		
+		int tmp2 = (~tmp) & ((1 << D) - 1);
+		if (Count[tmp2] < K)
+			checkB = false;
+
+		if (!checkA && !checkB)
+		{
+			check = false;
+			break;
+		}
 	}
-	return true;
+	
+	return check;
 }
