@@ -1,206 +1,100 @@
 #include <iostream>
+#include <cstdio>
+#include <vector>
+#include <queue>
+#include <cstring>
+#include <cmath>
 
 using namespace std;
+int n, m, ans, rx, ry, bx, by;
+bool visit[11][11][11][11];
+char arr[22][22];
+int dx[4] = { 0,0,-1,1 };
+int dy[4] = { 1,-1,0,0 };
 
-int a[21][21];
+int bfs() {
+	queue<pair<pair<int, int>, pair<int, int>>> q;
+	q.push({ { ry,rx },{ by,bx } });
+	visit[ry][rx][by][bx] = true;
 
-int n;
+	int cnt = 0;
 
-int dx[] = { 0,0,1,-1 };
-int dy[] = { 1,-1,0,0 };
+	while (!q.empty()) {
+		int qSize = q.size();
+		while (qSize--) {
+			int rry = q.front().first.first;
+			int rrx = q.front().first.second;
+			int bby = q.front().second.first;
+			int bbx = q.front().second.second;
+			q.pop();
 
-bool move(int direction)
-{
-	bool flag = false;
+			if (arr[rry][rrx] == 'O' && (arr[rry][rrx] != arr[bby][bbx])) {  //도착했을떄
+				return cnt;
+			}
+			for (int i = 0; i<4; i++) {
+				int t1, t2, t3, t4;
+				t1 = rry;
+				t2 = rrx;
+				t3 = bby;
+				t4 = bbx;
 
-	if (direction == 0) { //아래
-		for (int j = 0; j < n; j++) {
-			int down = n - 1, up = n - 1;
-			while (0 <= up && 0 <= down) {
-				if (a[down][j] == 0) {
-					while (0 <= up) {
-						if (a[up][j] != 0) {
-							a[down][j] = a[up][j];
-							a[up][j] = 0;
-							break;
-						}
-						up--;
+				while (arr[t1 + dy[i]][t2 + dx[i]] != '#' && arr[t1][t2] != 'O') {    //빨간색 이동
+					t1 += dy[i];
+					t2 += dx[i];
+				}
+				while (arr[t3 + dy[i]][t4 + dx[i]] != '#' && arr[t3][t4] != 'O') {    //파란색 이동
+					t3 += dy[i];
+					t4 += dx[i];
+				}
+
+				if ((t1 == t3) && (t2 == t4)) {               // 만약 같은 라인에 있었다면
+					if (arr[t1][t2] == 'O')
+						continue;
+					if (abs(t1 - rry) + abs(t2 - rrx) < abs(t3 - bby) + abs(t4 - bbx)) {
+						t3 -= dy[i];                        //이동을 덜한 부분처리
+						t4 -= dx[i];
+					}
+					else {
+						t1 -= dy[i];
+						t2 -= dx[i];
 					}
 				}
-				else {
-					while (0 <= up) {
-						up--;
-						if (a[up][j] != 0) {
-							if (a[down][j] == a[up][j]) {
-								a[down][j] *= 2;
-								a[up][j] = 0;
-								flag = true;
-							}
-							down--;
-							break;
-						}
-					}
 
+				if (visit[t1][t2][t3][t4]) {
+					continue;
 				}
+				q.push({ { t1,t2 } ,{ t3,t4 } });
+				visit[t1][t2][t3][t4] = true;
+
 			}
 		}
-
-	}
-	else if (direction == 1) { //위
-		for (int j = 0; j < n; j++) {
-			int down = 0, up = 0;
-			while (up<n && down<n) {
-				if (a[down][j] == 0) {
-					while (up<n) {
-						if (a[up][j] != 0) {
-							a[down][j] = a[up][j];
-							a[up][j] = 0;
-							break;
-						}
-						up++;
-					}
-				}
-				else {
-					while (up<n) {
-						up++;
-						if (a[up][j] != 0) {
-							if (a[down][j] == a[up][j]) {
-								a[down][j] *= 2;
-								a[up][j] = 0;
-								flag = true;
-							}
-							down++;
-							break;
-						}
-					}
-
-				}
-			}
+		if (cnt >= 10) {
+			return -1;
 		}
-
+		cnt++;
 	}
-	else if (direction == 2) { //오
-		for (int i = 0; i < n; i++) {
-			int down = n - 1, up = n - 1;
-			while (0 <= up && 0 <= down) {
-				if (a[i][down] == 0) {
-					while (0 <= up) {
-						if (a[i][up] != 0) {
-							a[i][down] = a[i][up];
-							a[i][up] = 0;
-							break;
-						}
-						up--;
-					}
-				}
-				else {
-					while (0 <= up) {
-						up--;
-						if (a[i][up] != 0) {
-							if (a[i][down] == a[i][up]) {
-								a[i][down] *= 2;
-								a[i][up] = 0;
-								flag = true;
-							}
-							down--;
-							break;
-						}
-					}
-
-				}
-			}
-		}
-
-	}
-	else if (direction == 3) { //왼
-		for (int i = 0; i < n; i++) {
-			int down = 0, up = 0;
-			while (up<n && down<n) {
-				if (a[i][down] == 0) {
-					while (up<n) {
-						if (a[i][up] != 0) {
-							a[i][down] = a[i][up];
-							a[i][up] = 0;
-							break;
-						}
-						up++;
-					}
-				}
-				else {
-					while (up<n) {
-						up++;
-						if (a[i][up] != 0) {
-							if (a[i][down] == a[i][up]) {
-								a[i][down] *= 2;
-								a[i][up] = 0;
-								flag = true;
-							}
-							down++;
-							break;
-						}
-					}
-
-				}
-			}
-		}
-
-	}
-
-	return flag;
+	return -1;
 }
 
-int count() {
-	int maxx = a[0][0];
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			maxx = maxx > a[i][j] ? maxx : a[i][j];
-		}
-	}
-	return maxx;
-}
+int main() {
+	scanf("%d%d", &n, &m);
+	memset(visit, false, sizeof(visit));
 
-
-int dfs(int depth) {
-
-	if (depth >= 5) return count();
-	int ret = 0;
-	int temp[21][21];
-
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			temp[i][j] = a[i][j];
-		}
-	}
-
-	for (int i = 0; i < 4; i++) {
-
-		int flag = move(i);
-
-		int t1 = dfs(depth + 1);
-		ret = ret < t1 ? t1 : ret;
-
-
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				a[i][j] = temp[i][j];
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			scanf(" %c", &arr[i][j]);
+			if (arr[i][j] == 'B') {
+				by = i;
+				bx = j;
+			}
+			else if (arr[i][j] == 'R') {
+				ry = i;
+				rx = j;
 			}
 		}
-
-	}
-	return ret;
-}
-
-int main()
-{
-	cin >> n;
-
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			cin >> a[i][j];
-		}
 	}
 
-	cout << dfs(0) << '\n';
+	printf("%d\n", bfs());
 
 	return 0;
 }
